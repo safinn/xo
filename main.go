@@ -33,6 +33,8 @@ var games = make(map[int]*Game)
 var clients = make(map[*websocket.Conn]bool)
 
 func main() {
+	fs := http.FileServer(http.Dir("./public"))
+	http.Handle("/", fs)
 
 	http.HandleFunc("/games/", gameApi)
 
