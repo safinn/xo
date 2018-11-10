@@ -1,8 +1,12 @@
 package main
 
 import (
+	"encoding/json"
+	"errors"
 	"log"
 	"net/http"
+	"strconv"
+	"strings"
 
 	"github.com/gorilla/websocket"
 )
@@ -29,6 +33,9 @@ var games = make(map[int]*Game)
 var clients = make(map[*websocket.Conn]bool)
 
 func main() {
+
+	http.HandleFunc("/games/", gameApi)
+
 	http.HandleFunc("/ws", handleConnections)
 
 	log.Println("http server started on :8000")
@@ -36,6 +43,46 @@ func main() {
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
+}
+
+func gameApi(w http.ResponseWriter, r *http.Request) {
+	gameIdInt, err := getParameterAsInt(r)
+	if err != nil {
+		http.Error(w, "Url parameter not a single int", http.StatusInternalServerError)
+		return
+	}
+
+	data, err := findGame(gameIdInt, games)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(data)
+	return
+}
+
+func getParameterAsInt(r *http.Request) (int, error) {
+	gameId := strings.TrimPrefix(r.URL.Path, "/games/")
+	gameIdInt, err := strconv.Atoi(gameId)
+	if err != nil {
+		return 0, errors.New("Url parameter not a single int")
+	}
+	return gameIdInt, nil
+}
+
+func findGame(gameId int, games map[int]*Game) ([]byte, error) {
+	game := games[gameId]
+	if game != nil {
+		game.Player = ""
+		data, err := json.Marshal(game)
+		if err != nil {
+			return nil, errors.New(err.Error())
+		}
+		return data, nil
+	}
+	return nil, errors.New("No game found")
 }
 
 var upgrader = websocket.Upgrader{
