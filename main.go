@@ -64,5 +64,13 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 			delete(clients, ws)
 			break
 		}
+
+		handleAction(msg, ws)
+	}
+}
+func handleAction(msg Message, ws *websocket.Conn) {
+	switch msg.Action {
+	case "NEW GAME":
+		newGame(&gameCounter, games, ws)
 	}
 }
