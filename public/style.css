@@ -1,0 +1,51 @@
+.box {
+    line-height: 120px;
+    height: 120px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.box:hover {
+    background: lightgray;
+    cursor: pointer;
+}
+
+#box1 {
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+#box2 {
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+#box3 {
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+}
+#box4 {
+    border-right: 2px solid black;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+#box5 {
+    border: 2px solid black;
+}
+#box6 {
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+#box7 {
+    border-right: 2px solid black;
+    border-top: 2px solid black;
+}
+#box8 {
+    border-right: 2px solid black;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+}
+#box9 {
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+}

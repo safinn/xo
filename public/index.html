@@ -12,6 +12,71 @@
 </head>
 
 <body>
+    <div id="app">
+        <div v-bind:class="{ 'pt-4': !game }" class="container">
+            <div v-if="game">
+                <div class="row justify-content-center">
+                    <div v-on:click="move(0)" id="box1" class="box col col-md-2 ">
+                        {{ game.board[0] == 0 ? '' : game.board[0] == 1 ? 'X' : 'O' }}
+                    </div>
+                    <div v-on:click="move(1)" id="box2" class="box col col-md-2">
+                        {{ game.board[1] == 0 ? '' : game.board[1] == 1 ? 'X' : 'O' }}
+                    </div>
+                    <div v-on:click="move(2)" id="box3" class="box col col-md-2">
+                        {{ game.board[2] == 0 ? '' : game.board[2] == 1 ? 'X' : 'O' }}
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div v-on:click="move(3)" id="box4" class="box col col-md-2">
+                        {{ game.board[3] == 0 ? '' : game.board[3] == 1 ? 'X' : 'O' }}
+                    </div>
+                    <div v-on:click="move(4)" id="box5" class="box col col-md-2">
+                        {{ game.board[4] == 0 ? '' : game.board[4] == 1 ? 'X' : 'O' }}
+                    </div>
+                    <div v-on:click="move(5)" id="box6" class="box col col-md-2">
+                        {{ game.board[5] == 0 ? '' : game.board[5] == 1 ? 'X' : 'O' }}
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div v-on:click="move(6)" id="box7" class="box col col-md-2">
+                        {{ game.board[6] == 0 ? '' : game.board[6] == 1 ? 'X' : 'O' }}
+                    </div>
+                    <div v-on:click="move(7)" id="box8" class="box col col-md-2">
+                        {{ game.board[7] == 0 ? '' : game.board[7] == 1 ? 'X' : 'O' }}
+                    </div>
+                    <div v-on:click="move(8)" id="box9" class="box col col-md-2">
+                        {{ game.board[8] == 0 ? '' : game.board[8] == 1 ? 'X' : 'O' }}
+                    </div>
+                </div>
+
+                <div>
+                    <div>Game ID: {{ game.gameId }}</div>
+                    <div>Player: {{ game.player }}</div>
+                    <div>Turn: {{ game.turn == 0 ? 'X' : 'O' }}</div>
+                    <div>Status: {{ status }}</div>
+                    <button v-on:click="back" class="btn btn-outline-secondary" type="button">Back</button>
+                </div>
+            </div>
+            <div v-else>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-xl-6 col-md-10">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button v-on:click="newGame" class="btn btn-outline-secondary" type="button" id="button-addon1">New
+                                    Game</button>
+                            </div>
+                            <input v-model="gameId" type="number" class="form-control" placeholder="Game ID" aria-label="Game ID"
+                                aria-describedby="button2">
+                            <div class="input-group-append">
+                                <button v-on:click="joinGame" class="btn btn-outline-secondary" type="button" id="button2">Join
+                                    Game</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="/app.js"></script>
