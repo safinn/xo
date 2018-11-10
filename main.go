@@ -75,6 +75,8 @@ func handleAction(msg Message, ws *websocket.Conn) {
 		newGame(&gameCounter, games, ws)
 	case "JOIN GAME":
 		joinGame(games, ws, msg)
+	case "MOVE":
+		makeMove(games, ws, msg)
 	}
 }
 
