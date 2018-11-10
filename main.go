@@ -68,9 +68,24 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 		handleAction(msg, ws)
 	}
 }
+
 func handleAction(msg Message, ws *websocket.Conn) {
 	switch msg.Action {
 	case "NEW GAME":
 		newGame(&gameCounter, games, ws)
+	}
+}
+
+func sendWsMessage(ws *websocket.Conn, game *Game) {
+	if game.Players[0] == ws {
+		game.Player = "X"
+	} else {
+		game.Player = "O"
+	}
+	err := ws.WriteJSON(game)
+	if err != nil {
+		log.Printf("error: %v", err)
+		ws.Close()
+		delete(clients, ws)
 	}
 }
