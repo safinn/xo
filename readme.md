@@ -1,5 +1,7 @@
 # XO
 
+DEMO: https://xo-go.now.sh
+
 > A Go server using websockets to allow users to remotely play Noughts & Crosses through a Vue.js page and check the game status through a REST endpoint.
 
 ## How it works
